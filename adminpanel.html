@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #F2F2F2;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .header {
+      background-color: #333;
+      color: #fff;
+      padding: 10px;
+      text-align: center;
+      border-radius: 10px 10px 0 0;
+    }
+
+    .applications-list {
+      padding: 20px;
+      overflow-y: auto;
+      max-height: 300px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+
+    .application {
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .application:last-child {
+      border-bottom: none;
+    }
+
+    .stats {
+      padding: 20px;
+      background-color: #F2F2F2;
+      border-top: 1px solid #ccc;
+    }
+
+    .stats ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .stats li {
+      display: inline-block;
+      margin-right: 20px;
+    }
+
+    .stats li span {
+      font-weight: bold;
+    }
+    .search-bar {
+      margin-bottom: 20px;
+    }
+    .search-bar input[type="text"] {
+      width: 100%;
+      padding: 10px;    
+      font-size: 18px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      margin: 5px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #24B92A;
+      color: #fff;
+      border: 1px solid #24B92A;
+    }
+    button:hover {
+      background-color: #1a7d23;
+    }
+    
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Admin Panel</h1>
+    </div>
+    <br>
+    <div class="search-bar">
+      <input type="text" id="search-input" placeholder="Search by Application ID">
+    </div>
+    <div class="applications-list">
+      <h2>Applications List</h2>
+      <ul id="applications-list"></ul>
+    </div>
+    <div class="stats">
+      <h2>Statistics</h2>
+      <ul>
+        <li><span>Pending:</span> <span id="pending-count">0</span></li>
+        <li><span>Approved:</span> <span id="approved-count">0</span></li>
+        <li><span>Rejected:</span> <span id="rejected-count">0</span></li>
+      </ul>
+      <br>
+      <div>
+        <button id="clear-history">Clear History</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let applications = JSON.parse(localStorage.getItem('applications')) || [];
+
+    function updateApplicationsList(applicationsList = applications) {
+      const applicationsListElement = document.getElementById('applications-list');
+      applicationsListElement.innerHTML = '';
+      applicationsList.forEach((application) => {
+        const listItem = document.createElement('li');
+        listItem.textContent = `Application ID: ${application.applicationId}, Name: ${application.name}, Status: ${application.status}`;
+        const updateButton = document.createElement('button');
+        updateButton.textContent = 'Update Status';
+        updateButton.addEventListener('click', () => {
+          const newStatus = prompt('Enter new status (pending, approved, rejected):');
+          updateApplicationStatus(application.applicationId, newStatus);
+        });
+        listItem.appendChild(updateButton);
+
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.addEventListener('click', () => {
+          deleteApplication(application.applicationId);
+        });
+        listItem.appendChild(deleteButton);
+
+        applicationsListElement.appendChild(listItem);
+      });
+    }
+
+    function updateApplicationStatus(applicationId, newStatus) {
+      const existingApplication = applications.find((app) => app.applicationId === applicationId);
+      if (existingApplication) {
+        existingApplication.status = newStatus;
+        localStorage.setItem('applications', JSON.stringify(applications));
+        alert(`Application status updated successfully!`);
+        updateApplicationsList();
+        updateStatistics();
+      } else {
+        alert(`Application with ID ${applicationId} not found!`);
+      }
+    }
+
+    function updateStatistics() {
+      let pendingCount = 0;
+      let approvedCount = 0;
+      let rejectedCount = 0;
+      applications.forEach((application) => {
+        if (application.status === 'pending') {
+          pendingCount++;
+        } else if (application.status === 'approved') {
+          approvedCount++;
+        } else if (application.status === 'rejected') {
+          rejectedCount++;
+        }
+      });
+      document.getElementById('pending-count').textContent = pendingCount;
+      document.getElementById('approved-count').textContent = approvedCount;
+      document.getElementById('rejected-count').textContent = rejectedCount;
+    }
+
+    function deleteApplication(applicationId) {
+      const index = applications.findIndex((app) => app.applicationId === applicationId);
+      if (index !== -1) {
+        applications.splice(index, 1);
+        localStorage.setItem('applications', JSON.stringify(applications));
+        updateApplicationsList();
+        updateStatistics();
+        alert(`Application with ID ${applicationId} deleted successfully!`);
+      } else {
+        alert(`Application with ID ${applicationId} not found!`);
+      }
+    }
+
+    updateApplicationsList();
+    updateStatistics();
+
+    document.getElementById('search-input').addEventListener('input', () => {
+      const searchValue = document.getElementById('search-input').value;
+      const filteredApplications = applications.filter((app) => app.applicationId.includes(searchValue));
+      updateApplicationsList(filteredApplications);
+    });
+
+    document.getElementById('clear-history').addEventListener('click', () => {
+      applications = [];
+      localStorage.removeItem('applications');
+      updateApplicationsList();
+      updateStatistics();
+      alert('History cleared successfully!');
+    });
+  </script>
+</body>
+</html>

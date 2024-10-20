@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #F2F2F2;
+    }
+
+    .mobile-screen {
+      width: 375px;
+      height: 667px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .header {
+      background-color: #333;
+      color: #fff;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .button-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 20px;
+      height: calc(100% - 60px); 
+    }
+
+    .button {
+      border: none;
+      padding: 20px 40px;
+      font-size: 32px;
+      font-weight: 900;
+      font-family: Arial, sans-serif;
+      cursor: pointer;
+      margin: 20px;
+      color: black;
+    }
+
+    .button.st, .button.sc, .button.obc, .button.ews {
+      width:120px; 
+      height: 100px; 
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      border-radius: 25%;
+    }
+    .button.button.birth-certificate, .button.button.death-certificate{
+        border-radius: 15%;
+        width: 240px;
+        height: 120px;;
+    }
+
+    .button.st {
+      background-color: #24B92A ; 
+    }
+
+    .button.sc {
+      background-color: #24B92A; 
+    }
+
+    .button.obc {
+      background-color: #24B92A; 
+    }
+
+    .button.ews {
+      background-color: #24B92A;
+    }
+
+    .button.birth-certificate {
+      background-color: #24B92A; 
+    }
+
+    .button.death-certificate {
+      background-color: #24B92A; 
+    }
+
+    .button:hover {
+      box-shadow: 0 0 20px #24B92A;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="mobile-screen">
+      <div class="header">
+        <div class="logo">Logo</div>
+      </div>
+      <div class="button-container">
+        <button class="button st" onClick="window.location.href='st.html';">ST</button>
+        <button class="button sc" onClick="window.location.href='sc.html';">SC</button>
+        <button class="button obc" onClick="window.location.href='obc.html';">OBC</button>
+        <button class="button ews" onClick="window.location.href='ews.html';">EWS</button>
+        <!-- <button class="button birth-certificate">Birth Certificate</button>
+        <button class="button death-certificate">Death Certificate</button> -->
+      </div>
+    </div>
+  </div>
+</body>
+</html> 

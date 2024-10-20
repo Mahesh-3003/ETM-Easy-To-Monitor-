@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    *{
+        font-family: Arial, sans-serif;
+    }
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #F2F2F2;
+    }
+
+    .mobile-screen {
+      width: 375px;
+      height: 667px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .header {
+      background-color: #333;
+      color: #fff;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .form-container {
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+    }
+
+    .title {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .label {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .input-field {
+      margin-bottom: 20px;
+      width: 93%;
+    }
+
+    .input-field input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      font-size: 18px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .select-field {
+      margin-bottom: 20px;
+    }
+
+    .select-field select {
+      width: 100%;
+      padding: 10px;
+      font-size: 18px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .button {
+      background-color: #4CAF50;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      background-color: #3e8e41;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="mobile-screen">
+      <div class="header">
+        <div class="logo">Logo</div>
+      </div>
+      <div class="form-container">
+        <div class="title">
+          <h1><b>EWS STATUS</b></h1>
+        </div>
+        <div class="label">
+          <b>Application ID:</b>
+        </div>
+        <div class="input-field">
+          <input type="text" id="application-id" placeholder="Enter Application ID">
+        </div>
+        <div class="label">
+          <b>Name:</b>
+        </div>
+        <div class="input-field">
+          <input type="text" id="name" placeholder="Enter Name">
+        </div>
+        <div class="label">
+          <b>Status:</b>
+        </div>
+        <div class="select-field">
+          <select id="status">
+            <option value="">Select Status</option>
+            <option value="pending">Pending</option>
+            <option value="rejected">Rejected</option>
+            <option value="approved">Approved</option>
+          </select>
+        </div>
+        <button class="button">Enter</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
